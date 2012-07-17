@@ -29,6 +29,7 @@
 
 - (void)showWithStatus:(NSString*)string maskType:(SVProgressHUDMaskType)hudMaskType networkIndicator:(BOOL)show;
 - (void)showImage:(UIImage*)image status:(NSString*)status duration:(NSTimeInterval)duration;
+- (void)dismissStatus:(NSString*)string;
 - (void)dismiss;
 
 - (void)setStatus:(NSString*)string;
@@ -105,6 +106,10 @@
 
 
 #pragma mark - Dismiss Methods
++ (void)dismissStatus:(NSString*)status {
+	[[SVProgressHUD sharedView] dismissStatus:status];
+}
+
 
 + (void)dismiss {
 	[[SVProgressHUD sharedView] dismiss];
@@ -396,6 +401,10 @@
     });
 }
 
+- (void)dismissStatus:(NSString*)status {
+    if ([self.stringLabel.text isEqualToString:status])
+        [self dismiss];
+}
 
 - (void)dismiss {
     dispatch_async(dispatch_get_main_queue(), ^{
